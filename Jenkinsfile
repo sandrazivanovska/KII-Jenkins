@@ -1,8 +1,7 @@
 pipeline {
     agent any
-
     environment {
-        DOCKER_IMAGE = "zivanovskas/kiii-jenkins"
+        DOCKER_IMAGE = 'sandrazivanovska/kii-jenkins'
     }
 
     stages {
@@ -13,14 +12,20 @@ pipeline {
         }
 
         stage('Build image') {
+            when {
+                branch 'dev'
+            }
             steps {
                 script {
-                    app = docker.build(env.DOCKER_IMAGE)
+                    app = docker.build("${DOCKER_IMAGE}")
                 }
             }
         }
 
         stage('Push image') {
+            when {
+                branch 'dev'
+            }
             steps {
                 script {
                     docker.withRegistry('https://registry.hub.docker.com', 'dockerhub') {
