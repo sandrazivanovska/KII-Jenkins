@@ -37,3 +37,4 @@ pipeline {
         }
     }
 }
+//build and push only if the branch is dev
